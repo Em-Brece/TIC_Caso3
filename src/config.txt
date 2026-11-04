@@ -1,0 +1,12 @@
+# Archivo de configuración de ejemplo - ajustar valores
+# Parámetros del enunciado (sección D).
+nu=3
+base=2
+ng=2
+tam1=5
+tam2=4
+procesadores=8
+memoria=16
+pagina=4
+almacenamiento=64
+bloque=8
