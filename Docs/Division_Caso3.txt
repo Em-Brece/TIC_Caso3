@@ -1,0 +1,121 @@
+PROPUESTA DE DIVISIÓN DEL CASO
+
+Persona A: Infraestructura y Recursos
+
+1. Controladores de recursos
+- ControladorProcesadores
+- ControladorMemoria
+- ControladorAlmacenamiento
+
+Responsabilidades:
+- Llevar registro de recursos libres y asignados.
+- Registrar qué MV tiene cada recurso.
+- Reservar recursos.
+- Liberar recursos.
+- Traducir memoria a páginas.
+- Traducir almacenamiento a bloques.
+
+2. Entidades de dominio
+- Solicitud
+- Estructuras auxiliares para páginas, bloques y procesadores.
+- Generador de identificadores.
+
+3. Archivo de configuración
+- Lectura de parámetros.
+- Clase Configuracion.
+
+Entregables internos:
+boolean reservar(int cantidad, String vmId);
+void liberar(String vmId);
+int disponibles();
+
+Configuracion config = Configuracion.cargar(...);
+
+--------------------------------------------------
+
+Persona B: Concurrencia y Flujo del Sistema
+
+1. Buzón de entrada
+- Capacidad limitada.
+- Productor-consumidor.
+- Espera pasiva con wait() y notifyAll().
+
+Responsabilidades:
+- ponerSolicitud(...)
+- tomarSolicitud(...)
+- registrarFinUsuario(...)
+
+2. Zona de espera
+- Cola de MVs bloqueadas.
+- Contador de pendientes.
+- Sincronización para despertar MVs.
+
+3. Threads principales
+- Usuario
+- GestorSolicitudes
+- MaquinaVirtual
+
+4. Coordinación de terminación
+- Detección de fin de usuarios.
+- Fin de gestores.
+- Espera de finalización mediante join().
+
+==================================================
+INTERFACES A ACORDAR DESDE EL INICIO
+==================================================
+
+Solicitud
+class Solicitud {
+    String id;
+    int procesadores;
+    int memoriaGB;
+    int almacenamientoGB;
+}
+
+Controladores
+- boolean reservar(...);
+- void liberar(...);
+
+Buzón
+- void agregar(Solicitud s);
+- Solicitud obtener();
+- boolean todosUsuariosTerminaron();
+
+Zona de espera
+- void esperar(MaquinaVirtual mv);
+- void despertar();
+
+
+==================================================
+LO QUE NO SE RECOMIENDA DIVIDIR
+==================================================
+
+- MV y controladores de recursos.
+- Gestor y zona de espera.
+
+Razón:
+Estos componentes concentran la mayor complejidad de sincronización, por lo que separarlos puede generar problemas de integración.
+
+==================================================
+RECOMENDACIÓN FINAL
+==================================================
+
+Integrante 1
+- Configuración
+- Solicitud
+- Usuario
+- Buzón
+
+Integrante 2
+- Controladores de recursos
+- MV
+- Zona de espera
+- Gestores
+
+Ambos
+- Diseño UML
+- Preguntas teóricas del informe
+- Pruebas y validación
+- Integración final
+
+Esta división minimiza dependencias y permite que cada integrante avance a su propio ritmo.
