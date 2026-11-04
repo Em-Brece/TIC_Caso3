@@ -1,5 +1,5 @@
-# Archivo de configuración de ejemplo - ajustar valores
-# Parámetros del enunciado (sección D).
+# Archivo de configuración: una clave=valor por línea.
+
 nu=3
 base=2
 ng=2
