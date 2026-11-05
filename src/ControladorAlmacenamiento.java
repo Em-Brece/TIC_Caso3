@@ -12,7 +12,7 @@ public class ControladorAlmacenamiento {
     private final int bloqueKiB;
     private final int totalBloques;
     private final String[] propietarios;
-    private int disponibles;
+    private int libresBloques;
 
     public ControladorAlmacenamiento(int almacenamientoGiB, int bloqueKiB) {
         if (almacenamientoGiB <= 0) {

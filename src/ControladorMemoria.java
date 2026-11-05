@@ -12,7 +12,7 @@ public class ControladorMemoria {
     private final int paginaKiB;
     private final int totalPaginas;
     private final String[] propietarios;
-    private int disponibles;
+    private int libresPaginas;
 
     public ControladorMemoria(int memoriaGiB, int paginaKiB) {
         if (memoriaGiB <= 0) {
