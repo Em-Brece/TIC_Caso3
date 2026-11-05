@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -64,11 +65,11 @@ public class ZonaEspera {
     }
 
 
-    public synchronized void esperarAdmision() throws InterruptedException {
+    public synchronized void esperarAdmision(String gestor) throws InterruptedException {
         if (!drenando && pendientes.size() >= umbral) {
             drenando = true;
             vecesDrenado++;
-            System.out.println(Thread.currentThread().getName() + " umbral alcanzado (pendientes="
+            System.out.println(gestor + " umbral alcanzado (pendientes="
                 + pendientes.size() + "), se suspende la admision hasta vaciar la zona");
         }
         while (drenando) {

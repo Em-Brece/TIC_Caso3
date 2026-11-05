@@ -7,8 +7,6 @@
  */
 public class ControladorAlmacenamiento {
 
-    private static final long KIB_POR_GIB = 1024L * 1024L;
-
     private final int bloqueKiB;
     private final int totalBloques;
     private final String[] propietarios;
@@ -21,7 +19,7 @@ public class ControladorAlmacenamiento {
         if (bloqueKiB <= 0) {
             throw new IllegalArgumentException("El tamano de bloque debe ser mayor que cero.");
         }
-        long capacidadKiB = (long) almacenamientoGiB * KIB_POR_GIB;
+        long capacidadKiB = (long) almacenamientoGiB * 1024L * 1024L;
         if (capacidadKiB % bloqueKiB != 0) {
             throw new IllegalArgumentException(
                 "El almacenamiento total en KiB no es multiplo del tamano de bloque.");
@@ -37,7 +35,7 @@ public class ControladorAlmacenamiento {
     }
 
     public int gibABloques(int almacenamientoGiB) {
-        long kib = (long) almacenamientoGiB * KIB_POR_GIB;
+        long kib = (long) almacenamientoGiB * 1024L * 1024L;
         long bloques = (kib + (bloqueKiB / 2L)) / bloqueKiB;
         return (int) bloques;
     }

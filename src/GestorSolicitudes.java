@@ -24,7 +24,7 @@ public class GestorSolicitudes extends Thread {
     public void run() {
         try {
             while (true) {
-                zona.esperarAdmision();
+                zona.esperarAdmision(getName());
 
                 Solicitud s = buzon.obtener();
                 if (s == null) {

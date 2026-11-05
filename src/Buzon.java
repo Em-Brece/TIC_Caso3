@@ -1,3 +1,4 @@
+
 import java.util.LinkedList;
 
 
@@ -17,15 +18,15 @@ public class Buzon {
         this.totalUsuarios = totalUsuarios;
     }
 
-    public synchronized void agregar(Solicitud s) throws InterruptedException {
+    public synchronized void agregar(Solicitud s, String emisor) throws InterruptedException {
         while (cola.size() >= capacidad) {
             System.out.println("Buzon lleno (" + cola.size() + "/" + capacidad + "), "
-                + Thread.currentThread().getName() + " espera (espera pasiva)");
+                + emisor + " espera (espera pasiva)");
             wait();
         }
         cola.addLast(s);
         totalRecibidas++;
-        System.out.println(Thread.currentThread().getName() + " deposita " + s.getId()
+        System.out.println(emisor + " deposita " + s.getId()
             + " en el buzon (" + cola.size() + "/" + capacidad + ")");
         notifyAll();
     }

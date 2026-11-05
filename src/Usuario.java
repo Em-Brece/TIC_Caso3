@@ -34,7 +34,7 @@ public class Usuario extends Thread {
                     + " [procesadores=" + procesadores
                     + ", memoria=" + memoria + " GiB"
                     + ", almacenamiento=" + almacenamiento + " GiB]");
-                buzon.agregar(s);
+                buzon.agregar(s, getName());
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
