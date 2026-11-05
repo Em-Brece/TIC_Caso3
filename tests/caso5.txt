@@ -1,0 +1,12 @@
+# Caso 5
+# Muchos usuarios y gestores con recursos moderados y paginas/bloques finos.
+nu=6
+base=4
+ng=4
+tam1=8
+tam2=5
+procesadores=12
+memoria=24
+pagina=2
+almacenamiento=96
+bloque=4

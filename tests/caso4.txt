@@ -1,0 +1,12 @@
+# Caso 4
+# tam1=1 obliga a los usuarios a hacer espera pasiva casi siempre.
+nu=3
+base=4
+ng=1
+tam1=1
+tam2=4
+procesadores=8
+memoria=16
+pagina=4
+almacenamiento=64
+bloque=8

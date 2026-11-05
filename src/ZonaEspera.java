@@ -27,7 +27,7 @@ public class ZonaEspera {
     public synchronized void esperar(MaquinaVirtual mv, long genVista) throws InterruptedException {
         if (pendientes.add(mv.getIdMV())) {
             maxPendientes = Math.max(maxPendientes, pendientes.size());
-            Log.info(mv.getIdMV() + " entra a la zona de espera (pendientes="
+            System.out.println(mv.getIdMV() + " entra a la zona de espera (pendientes="
                 + pendientes.size() + "/" + umbral + ")");
         }
         if (generacion != genVista) {
@@ -53,11 +53,11 @@ public class ZonaEspera {
 
     public synchronized void salir(MaquinaVirtual mv) {
         if (pendientes.remove(mv.getIdMV())) {
-            Log.info(mv.getIdMV() + " sale de la zona de espera (pendientes="
+            System.out.println(mv.getIdMV() + " sale de la zona de espera (pendientes="
                 + pendientes.size() + ")");
             if (pendientes.isEmpty() && drenando) {
                 drenando = false;
-                Log.info("zona de espera vacía, se reabre la admisión de solicitudes");
+                System.out.println("Zona de espera vacia, se reabre la admision de solicitudes");
                 notifyAll();
             }
         }
@@ -68,8 +68,8 @@ public class ZonaEspera {
         if (!drenando && pendientes.size() >= umbral) {
             drenando = true;
             vecesDrenado++;
-            Log.info("umbral alcanzado (pendientes=" + pendientes.size()
-                + "), se suspende la admisión hasta vaciar la zona");
+            System.out.println(Thread.currentThread().getName() + " umbral alcanzado (pendientes="
+                + pendientes.size() + "), se suspende la admision hasta vaciar la zona");
         }
         while (drenando) {
             wait();

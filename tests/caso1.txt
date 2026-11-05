@@ -1,0 +1,12 @@
+# Caso 1
+# Pocos usuarios y recursos holgados. Casi no deberia haber esperas.
+nu=2
+base=2
+ng=2
+tam1=5
+tam2=4
+procesadores=16
+memoria=32
+pagina=4
+almacenamiento=128
+bloque=8

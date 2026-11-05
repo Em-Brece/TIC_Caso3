@@ -19,12 +19,14 @@ public class Buzon {
 
     public synchronized void agregar(Solicitud s) throws InterruptedException {
         while (cola.size() >= capacidad) {
-            Log.info("buzón lleno (" + cola.size() + "/" + capacidad + "), espera pasiva");
+            System.out.println("Buzon lleno (" + cola.size() + "/" + capacidad + "), "
+                + Thread.currentThread().getName() + " espera (espera pasiva)");
             wait();
         }
         cola.addLast(s);
         totalRecibidas++;
-        Log.info("deposita " + s.getId() + " en el buzón (" + cola.size() + "/" + capacidad + ")");
+        System.out.println(Thread.currentThread().getName() + " deposita " + s.getId()
+            + " en el buzon (" + cola.size() + "/" + capacidad + ")");
         notifyAll();
     }
 
@@ -40,7 +42,7 @@ public class Buzon {
 
     public synchronized void registrarFinUsuario(String usuario) {
         usuariosTerminados++;
-        Log.info(usuario + " reporta su terminación en el buzón ("
+        System.out.println(usuario + " reporta su terminacion en el buzon ("
             + usuariosTerminados + "/" + totalUsuarios + ")");
         notifyAll();
     }

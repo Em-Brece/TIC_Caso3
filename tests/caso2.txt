@@ -1,0 +1,12 @@
+# Caso 2
+# Muchas solicitudes contra pocos procesadores/memoria/disco.
+nu=4
+base=3
+ng=3
+tam1=4
+tam2=3
+procesadores=4
+memoria=8
+pagina=4
+almacenamiento=16
+bloque=8

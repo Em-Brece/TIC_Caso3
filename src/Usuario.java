@@ -30,8 +30,10 @@ public class Usuario extends Thread {
                 int memoria = potenciaDeDosInferior(aleatorio(maxMemoria));
                 int almacenamiento = multiploDeDosInferior(aleatorio(maxAlmacenamiento), maxAlmacenamiento);
                 Solicitud s = new Solicitud(id, procesadores, memoria, almacenamiento);
-                Log.info("genera " + id + " [cpu=" + procesadores + ", mem=" + memoria
-                    + " GiB, disco=" + almacenamiento + " GiB]");
+                System.out.println("Usuario-" + idUsuario + " genera la solicitud " + id
+                    + " [procesadores=" + procesadores
+                    + ", memoria=" + memoria + " GiB"
+                    + ", almacenamiento=" + almacenamiento + " GiB]");
                 buzon.agregar(s);
             }
         } catch (InterruptedException e) {

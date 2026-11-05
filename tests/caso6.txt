@@ -1,0 +1,12 @@
+# Caso 6
+# Caso borde con la menor concurrencia posible.
+nu=1
+base=3
+ng=1
+tam1=3
+tam2=2
+procesadores=6
+memoria=16
+pagina=4
+almacenamiento=32
+bloque=8

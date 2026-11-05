@@ -1,0 +1,12 @@
+# Caso 3
+# tam2=1 hace que la admision se suspenda apenas una MV quede pendiente.
+nu=4
+base=3
+ng=3
+tam1=6
+tam2=1
+procesadores=3
+memoria=8
+pagina=4
+almacenamiento=16
+bloque=8

@@ -37,10 +37,11 @@ public class GestorSolicitudes extends Thread {
 
                 MaquinaVirtual mv = new MaquinaVirtual(s, cpu, memoria, disco, zona);
                 maquinas.add(mv);
-                Log.info("procesa " + s.getId() + " y crea " + mv.getIdMV());
+                System.out.println(getName() + " procesa " + s.getId() + " y crea " + mv.getIdMV());
                 mv.start();
             }
-            Log.info("termina (usuarios terminados y buzón vacío), creó " + maquinas.size() + " MV(s)");
+            System.out.println(getName() + " termina (usuarios terminados y buzon vacio), creo "
+                + maquinas.size() + " MV(s)");
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

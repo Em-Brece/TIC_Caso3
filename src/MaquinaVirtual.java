@@ -41,6 +41,10 @@ public class MaquinaVirtual extends Thread {
     @Override
     public void run() {
         try {
+            System.out.println(getIdMV() + " creada e inicia su configuracion"
+                + " [procesadores=" + solicitud.getProcesadores()
+                + ", memoria=" + solicitud.getMemoriaGiB() + " GiB"
+                + ", almacenamiento=" + solicitud.getAlmacenamientoGiB() + " GiB]");
             while (true) {
                 long gen = zona.generacionActual();
                 intentos++;
@@ -52,11 +56,12 @@ public class MaquinaVirtual extends Thread {
             zona.salir(this);
 
             long duracion = (long) ((T_MIN_MS + random.nextInt(T_MAX_MS - T_MIN_MS + 1)) * ESCALA);
-            Log.info("configurada tras " + intentos + " intento(s), se ejecuta " + duracion + " ms");
+            System.out.println(getIdMV() + " configurada tras " + intentos
+                + " intento(s), se ejecuta " + duracion + " ms");
             Thread.sleep(duracion);
 
             liberarTodo();
-            Log.info("termina y libera sus recursos");
+            System.out.println(getIdMV() + " termina y libera sus recursos");
             zona.despertar();
         } catch (InterruptedException e) {
             liberarTodo();
@@ -69,19 +74,20 @@ public class MaquinaVirtual extends Thread {
     private boolean intentarReservar() {
         String id = getIdMV();
         if (!cpu.reservar(solicitud.getProcesadores(), id)) {
-            Log.info("no hay " + solicitud.getProcesadores() + " procesador(es) libres");
+            System.out.println(id + " no hay " + solicitud.getProcesadores() + " procesador(es) libres");
             return false;
         }
         if (!memoria.reservar(solicitud.getMemoriaGiB(), id)) {
             cpu.liberar(id);
-            Log.info("no hay " + solicitud.getMemoriaGiB() + " GiB de memoria, devuelve procesadores");
+            System.out.println(id + " no hay " + solicitud.getMemoriaGiB()
+                + " GiB de memoria, devuelve procesadores");
             zona.despertar();
             return false;
         }
         if (!disco.reservar(solicitud.getAlmacenamientoGiB(), id)) {
             memoria.liberar(id);
             cpu.liberar(id);
-            Log.info("no hay " + solicitud.getAlmacenamientoGiB()
+            System.out.println(id + " no hay " + solicitud.getAlmacenamientoGiB()
                 + " GiB de disco, devuelve memoria y procesadores");
             zona.despertar();
             return false;

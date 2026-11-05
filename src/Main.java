@@ -19,7 +19,8 @@ public class Main {
         Buzon buzon = new Buzon(config.getTam1(), config.getNu());
         ZonaEspera zona = new ZonaEspera(config.getTam2());
 
-        Log.info("inicio: nu=" + config.getNu() + " base=" + config.getBase() + " ng=" + config.getNg()
+        System.out.println("inicio: nu=" + config.getNu() + " base=" + config.getBase()
+            + " ng=" + config.getNg()
             + " tam1=" + config.getTam1() + " tam2=" + config.getTam2());
 
         List<Usuario> usuarios = new ArrayList<>();
@@ -45,19 +46,19 @@ public class Main {
         for (Usuario u : usuarios) {
             u.join();
         }
-        Log.info("todos los usuarios terminaron");
+        System.out.println("todos los usuarios terminaron");
 
         List<MaquinaVirtual> maquinas = new ArrayList<>();
         for (GestorSolicitudes g : gestores) {
             g.join();
             maquinas.addAll(g.getMaquinas());
         }
-        Log.info("todos los gestores terminaron");
+        System.out.println("todos los gestores terminaron");
 
         for (MaquinaVirtual mv : maquinas) {
             mv.join();
         }
-        Log.info("todas las máquinas virtuales terminaron");
+        System.out.println("todas las maquinas virtuales terminaron");
 
         boolean ok = true;
         ok &= verificar("solicitudes generadas = recibidas en el buzón",
@@ -75,16 +76,16 @@ public class Main {
         ok &= verificar("almacenamiento en estado inicial", disco.disponibles() == discoInicial,
             disco.disponibles() + "/" + discoInicial);
 
-        Log.info("máximo de MVs pendientes en la zona: " + zona.getMaxPendientes()
-            + ", veces que se suspendió la admisión: " + zona.getVecesDrenado());
-        Log.info(ok ? "VERIFICACIÓN FINAL CORRECTA" : "VERIFICACIÓN FINAL CON ERRORES");
+        System.out.println("maximo de MVs pendientes en la zona: " + zona.getMaxPendientes()
+            + ", veces que se suspendio la admision: " + zona.getVecesDrenado());
+        System.out.println(ok ? "VERIFICACION FINAL CORRECTA" : "VERIFICACION FINAL CON ERRORES");
         if (!ok) {
             System.exit(1);
         }
     }
 
     private static boolean verificar(String aspecto, boolean condicion, String detalle) {
-        Log.info((condicion ? "[OK]    " : "[FALLA] ") + aspecto + " (" + detalle + ")");
+        System.out.println((condicion ? "[OK]    " : "[FALLA] ") + aspecto + " (" + detalle + ")");
         return condicion;
     }
 }
