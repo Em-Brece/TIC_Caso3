@@ -25,21 +25,19 @@ public class Configuracion {
     private final String rutaArchivo;
     private final Map<String, Integer> valores;
 
-    public Configuracion(String rutaArchivo) {
+    public Configuracion(String rutaArchivo) throws IOException {
         if (rutaArchivo == null || rutaArchivo.trim().isEmpty()) {
-            throw new IllegalArgumentException("La ruta del archivo no puede estar vacía.");
+            throw new IOException("La ruta del archivo no puede estar vacía.");
         }
         this.rutaArchivo = rutaArchivo;
-        this.valores = new LinkedHashMap<>();
-    }
-
-    private Configuracion(String rutaArchivo, Map<String, Integer> valores) {
-        this.rutaArchivo = rutaArchivo;
-        this.valores = new LinkedHashMap<>(valores);
+        this.valores = leerValores(rutaArchivo);
     }
 
     public static Configuracion cargar(String rutaArchivo) throws IOException {
-        Configuracion configuracion = new Configuracion(rutaArchivo);
+        return new Configuracion(rutaArchivo);
+    }
+
+    private static Map<String, Integer> leerValores(String rutaArchivo) throws IOException {
         Map<String, Integer> valores = new LinkedHashMap<>();
         Path ruta = Path.of(rutaArchivo);
 
@@ -87,11 +85,11 @@ public class Configuracion {
 
         for (String clave : CLAVES_REQUERIDAS) {
             if (!valores.containsKey(clave)) {
-                throw new IOException("Falta el parámetro requerido '" + clave + "' en " + ruta + ".");
+                throw new IOException("Falta el parámetro requerido '" + clave + "' en " + ruta);
             }
         }
 
-        return new Configuracion(configuracion.rutaArchivo, valores);
+        return valores;
     }
 
     public String leerArchivo() throws IOException {
@@ -147,12 +145,7 @@ public class Configuracion {
     }
 
     private int getValor(String clave) {
-        Integer valor = valores.get(clave);
-        if (valor == null) {
-            throw new IllegalStateException(
-                "La configuración no se ha cargado; use Configuracion.cargar(rutaArchivo).");
-        }
-        return valor;
+        return valores.get(clave);
     }
 
     private static boolean esClaveRequerida(String clave) {
@@ -165,6 +158,6 @@ public class Configuracion {
     }
 
     private static IOException error(Path ruta, int numeroLinea, String mensaje) {
-        return new IOException(ruta + ":" + numeroLinea + ": " + mensaje + ".");
+        return new IOException(ruta + ":" + numeroLinea + ": " + mensaje);
     }
 }
