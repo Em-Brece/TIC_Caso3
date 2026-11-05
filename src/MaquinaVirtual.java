@@ -72,16 +72,16 @@ public class MaquinaVirtual extends Thread {
             Log.info("no hay " + solicitud.getProcesadores() + " procesador(es) libres");
             return false;
         }
-        if (!memoria.reservar(solicitud.getMemoriaGB(), id)) {
+        if (!memoria.reservar(solicitud.getMemoriaGiB(), id)) {
             cpu.liberar(id);
-            Log.info("no hay " + solicitud.getMemoriaGB() + " GiB de memoria, devuelve procesadores");
+            Log.info("no hay " + solicitud.getMemoriaGiB() + " GiB de memoria, devuelve procesadores");
             zona.despertar();
             return false;
         }
-        if (!disco.reservar(solicitud.getAlmacenamientoGB(), id)) {
+        if (!disco.reservar(solicitud.getAlmacenamientoGiB(), id)) {
             memoria.liberar(id);
             cpu.liberar(id);
-            Log.info("no hay " + solicitud.getAlmacenamientoGB()
+            Log.info("no hay " + solicitud.getAlmacenamientoGiB()
                 + " GiB de disco, devuelve memoria y procesadores");
             zona.despertar();
             return false;
